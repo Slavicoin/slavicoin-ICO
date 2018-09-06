@@ -1,0 +1,18 @@
+{
+  "ignored": [
+    ".git/**",
+    ".git",
+    "app/common/log/logs/**",
+    "app/common/log/.DS_Store",
+    "app/common/log/logs/.DS_Store",
+    "app/node_modules/**/*",
+    "node_modules/.bin/*",
+    ".idea",
+    ".idea/**",
+    "npm-debug.log*",
+    "package-lock.json",
+    "build-output",
+    ".DS_Store",
+    "app/view/**"
+  ]
+}

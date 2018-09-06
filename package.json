@@ -1,0 +1,43 @@
+{
+  "name": "slavicoin-ico",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon",
+    "eslint": "eslint",
+    "fix": "eslint --fix .",
+    "lint": "eslint -c .eslintrc node_modules/app/**.js --ignore-pattern '!node_modules/*' && eslint -c .eslintrc index.js",
+    "unit-test": "find ./node_modules/app/api -name '*\\.test.js' | xargs mocha -R spec",
+    "test": "npm run lint && npm run unit-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slavicoin/slavicoin-ICO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slavicoin/slavicoin-ICO/issues"
+  },
+  "homepage": "https://github.com/Slavicoin/slavicoin-ICO#readme",
+  "dependencies": {
+    "bluebird": "^3.5.2",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "ethereumjs-abi": "^0.6.5",
+    "express": "^4.16.3",
+    "serve-static": "^1.13.2",
+    "winston": "^3.1.0",
+    "winston-daily-rotate-file": "^3.3.2"
+  },
+  "devDependencies": {
+    "chokidar": "^2.0.4",
+    "eslint": "^5.5.0",
+    "eslint-plugin-mocha": "^5.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "pre-commit": "^1.2.2",
+    "ps-node": "^0.1.6"
+  }
+}
