@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "localhost:3010",
   "scripts": {
+    "nuxt": "nuxt",
     "nodemon": "nodemon",
     "eslint": "eslint",
     "fix": "eslint --fix .",
@@ -22,11 +24,14 @@
   },
   "homepage": "https://github.com/Slavicoin/slavicoin-ICO#readme",
   "dependencies": {
+    "@nuxtjs/proxy": "^1.2.4",
+    "axios": "^0.18.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "ethereumjs-abi": "^0.6.5",
     "express": "^4.16.3",
+    "nuxt": "^1.4.2",
     "serve-static": "^1.13.2",
     "winston": "^3.1.0",
     "winston-daily-rotate-file": "^3.3.2"
