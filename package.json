@@ -5,6 +5,7 @@
   "main": "index.js",
   "proxy": "localhost:3010",
   "scripts": {
+    "start": "nodemon index.js --config nodemon.json",
     "nuxt": "nuxt",
     "nodemon": "nodemon",
     "eslint": "eslint",
