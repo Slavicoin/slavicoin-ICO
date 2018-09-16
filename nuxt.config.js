@@ -1,5 +1,5 @@
 module.exports = {
-  srcDir: 'node_modules/app/view/',
+  srcDir: 'app/view/',
   modules: [
     '@nuxtjs/proxy'
   ]

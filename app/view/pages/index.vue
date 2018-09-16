@@ -18,7 +18,9 @@
 
 <template>
     <div>
-        {{ test }}
+        Hello world <br />
+
+        message: {{ test }}
     </div>
 </template>
 

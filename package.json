@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy": "localhost:3010",
   "scripts": {
     "start": "cross-env NODE_PATH=. node index.js",
     "nuxt": "nuxt",
-    "nodemon": "nodemon",
     "eslint": "eslint",
     "fix": "eslint --fix .",
     "lint": "eslint -c .eslintrc app/**.js && eslint -c .eslintrc index.js",
-    "unit-test": "find ./node_modules/app/api -name '*\\.test.js' | xargs mocha -R spec",
+    "unit-test": "find ./app/api -name '*\\.test.js' | xargs mocha -R spec",
     "test": "npm run lint && npm run unit-test"
   },
   "repository": {
@@ -44,7 +42,6 @@
     "eslint": "^5.5.0",
     "eslint-plugin-mocha": "^5.2.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.4",
     "pre-commit": "^1.2.2",
     "ps-node": "^0.1.6"
   }

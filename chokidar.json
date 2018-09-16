@@ -2,7 +2,7 @@
   "ignored": [
     ".git/**",
     ".git",
-    "node_modules/app/view/**",
+    "app/view/**",
     "node_modules/.bin/*",
     ".idea",
     ".idea/**",

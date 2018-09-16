@@ -4,6 +4,11 @@ const logger = require('app/common/log/logger.service.js');
 const chokidar = require('chokidar');
 const chokidarConf = require('./chokidar.json');
 
+const { Nuxt, Builder } = require('nuxt');
+const options = require('./nuxt.config.js');
+
+const nuxt = new Nuxt(options);
+
 let SlavicoinICO;
 
 let firstRun = true;
@@ -51,7 +56,7 @@ async function updateServer() {
     server = new SlavicoinICO();
 
     try {
-      await server.initializeServer();
+      await server.initializeServer(nuxt);
       server.startServer();
       timer = null;
     } catch(error) {
@@ -71,7 +76,7 @@ async function updateServer() {
     server = new SlavicoinICO();
 
     try {
-      await server.initializeServer();
+      await server.initializeServer(nuxt);
       server.startServer();
     } catch(error) {
       logger.error(error);
@@ -93,6 +98,17 @@ async function start() {
         }
       });
     });
+
+    logger.info('Building front end');
+
+    try {
+      await new Builder(nuxt).build();
+    } catch(error) {
+      logger.error('Error building front end');
+      logger.error(error);
+      process.exit(-1);
+    }
+
     updateServer();
 
   }

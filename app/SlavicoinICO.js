@@ -4,8 +4,6 @@ const logger = require('app/common/log/logger.service');
 const bodyParser = require('body-parser');
 const glob = { glob: require('glob') };
 const bluebird = require('bluebird');
-const { Nuxt, Builder } = require('nuxt');
-const options = require('../nuxt.config.js');
 
 //const Ethereum = require('app/common/ethereum/Ethereum');
 
@@ -29,12 +27,12 @@ class SlavicoinICO {
 
   }
 
-  initializeServer() {
+  initializeServer(nuxt) {
     this.app.set('port', 3010);
 
     this.includeMiddlewares();
 
-    //this.includeViewRoutes();
+    this.includeViewRoutes(nuxt);
     return this.includeAPIRoutes();
 
   }
@@ -53,17 +51,10 @@ class SlavicoinICO {
       require(route.replace('node_modules/', ''))(this.app);
     });
   }
-  includeViewRoutes() {
-    const nuxt = new Nuxt(options);
-
+  includeViewRoutes(nuxt) {
+    logger.info('Including view application');
     this.app.use(nuxt.render);
 
-    new Builder(nuxt).build().then(() => {
-      this.app.use(nuxt.render);
-    }).catch(error => {
-      logger.error(error);
-      process.exit(-1);
-    });
   }
 
   connectionClose(closed) {
@@ -102,6 +93,5 @@ class SlavicoinICO {
   }
 
 }
-
 
 module.exports = SlavicoinICO;
