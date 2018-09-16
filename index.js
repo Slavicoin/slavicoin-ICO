@@ -13,7 +13,7 @@ let watcher;
 
 function emptyMemory() {
   Object.keys(require.cache).forEach(function (key) {
-    if(key.indexOf('node_modules/app') === -1) {
+    if(key.indexOf('node_modules') === -1) {
       const mod = require.cache[key];
 
       if(mod.parent) {
@@ -29,7 +29,7 @@ function emptyMemory() {
     }
   });
   require.main.children.forEach(function (child, index) {
-    if(child.id.indexOf('slavicoin-ICO/node_modules/app/SlavicoinICO.js') > -1) {
+    if(child.id.indexOf('slavicoin-ICO/app/SlavicoinICO.js') > -1) {
       require.main.children.splice(index, 1);
     }
   });
@@ -48,7 +48,7 @@ async function updateServer() {
     emptyMemory();
 
     SlavicoinICO = require('app/SlavicoinICO');
-    const server = new SlavicoinICO();
+    server = new SlavicoinICO();
 
     try {
       await server.initializeServer();
@@ -65,7 +65,7 @@ async function updateServer() {
   } else if(firstRun) {
     firstRun = false;
 
-    logger.info('Starting server');
+    logger.info('First time starting');
 
     SlavicoinICO = require('app/SlavicoinICO');
     server = new SlavicoinICO();
@@ -82,15 +82,14 @@ async function updateServer() {
 async function start() {
 
   if(environment === 'development') {
-    watcher = chokidar.watch('node_modules/app/',
+    watcher = chokidar.watch('app/',
       chokidarConf
     ).on('ready', function () {
-      watcher.on('all', function (what, item) {
-        console.log(what, item);
+      watcher.on('all', function () {
         if(timer) {
           clearTimeout(timer);
         } else {
-          timer = setTimeout(updateServer, 300);
+          timer = setTimeout(updateServer, 100);
         }
       });
     });

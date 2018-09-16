@@ -5,12 +5,12 @@
   "main": "index.js",
   "proxy": "localhost:3010",
   "scripts": {
-    "start": "nodemon index.js --config nodemon.json",
+    "start": "cross-env NODE_PATH=. node index.js",
     "nuxt": "nuxt",
     "nodemon": "nodemon",
     "eslint": "eslint",
     "fix": "eslint --fix .",
-    "lint": "eslint -c .eslintrc node_modules/app/**.js --ignore-pattern '!node_modules/*' && eslint -c .eslintrc index.js",
+    "lint": "eslint -c .eslintrc app/**.js && eslint -c .eslintrc index.js",
     "unit-test": "find ./node_modules/app/api -name '*\\.test.js' | xargs mocha -R spec",
     "test": "npm run lint && npm run unit-test"
   },
@@ -30,6 +30,7 @@
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "cross-env": "^5.2.0",
     "ethereumjs-abi": "^0.6.5",
     "express": "^4.16.3",
     "nuxt": "^1.4.2",

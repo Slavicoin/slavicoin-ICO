@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const glob = { glob: require('glob') };
 const bluebird = require('bluebird');
 const { Nuxt, Builder } = require('nuxt');
-const options = require('../../nuxt.config.js');
+const options = require('../nuxt.config.js');
 
 //const Ethereum = require('app/common/ethereum/Ethereum');
 
@@ -26,6 +26,7 @@ class SlavicoinICO {
     this.initializeServer = this.initializeServer.bind(this);
     this.includeAPIRoutes = this.includeAPIRoutes.bind(this);
     this.includeMiddlewares = this.includeMiddlewares.bind(this);
+
   }
 
   initializeServer() {
@@ -35,6 +36,7 @@ class SlavicoinICO {
 
     //this.includeViewRoutes();
     return this.includeAPIRoutes();
+
   }
   includeMiddlewares() {
     logger.info('Including middlewares');
@@ -44,6 +46,8 @@ class SlavicoinICO {
 
   }
   async includeAPIRoutes() {
+    logger.info('Including API routes');
+
     const routes = await glob.globAsync('**/api/**/*.route.js');
     routes.forEach((route) => {
       require(route.replace('node_modules/', ''))(this.app);
@@ -73,17 +77,20 @@ class SlavicoinICO {
   }
   stopServer(callback) {
     logger.info('Stopping server');
-    console.log(this.server.listening);
 
-    if(this.server && this.server.listening) {
+    if(this.server) {
       this.server.close(callback);
-      this.connections.forEach(function (connection) {
-        connection.end();
-        connection.destroy();
-      });
-    } else {
+
+    }
+    this.connections.forEach(function (connection) {
+      connection.end();
+      connection.destroy();
+    });
+
+    if(!this.server){
       return callback();
     }
+
   }
 
   startServer() {
@@ -91,7 +98,9 @@ class SlavicoinICO {
     this.server = this.app.listen(this.app.get('port'));
 
     this.server.on('connection', this.connectionEstablished);
+    logger.info('Server started');
   }
+
 }
 
 
