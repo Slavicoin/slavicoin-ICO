@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const glob = { glob: require('glob') };
 const bluebird = require('bluebird');
 
-//const Ethereum = require('app/common/ethereum/Ethereum');
+const Ethereum = require('app/common/ethereum/Ethereum');
 
 global.Promise = bluebird;
 Promise.promisifyAll(glob);
 
 class SlavicoinICO {
   constructor() {
-    //const eth = new Ethereum();
+    this.eth = new Ethereum();
 
     this.connections = [];
     this.app = express();
@@ -45,6 +45,7 @@ class SlavicoinICO {
   }
   async includeAPIRoutes() {
     logger.info('Including API routes');
+    console.log(await this.eth.checkTransaction('0x2afb84d989a31f17e84f50036fefd6940cc95023e80efa4cc6400b272794bd6e'));
 
     const routes = await glob.globAsync('**/api/**/*.route.js');
     routes.forEach((route) => {
@@ -91,6 +92,7 @@ class SlavicoinICO {
     this.server.on('connection', this.connectionEstablished);
     logger.info('Server started');
   }
+
 
 }
 

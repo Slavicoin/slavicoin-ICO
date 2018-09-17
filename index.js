@@ -60,6 +60,7 @@ async function updateServer() {
       server.startServer();
       timer = null;
     } catch(error) {
+      console.log(error);
       logger.error('ERROR!');
       logger.error(error);
     }
@@ -109,6 +110,11 @@ async function start() {
       process.exit(-1);
     }
 
+    process.on('unhandledRejection', function (reason) {
+      console.log(reason);
+      logger.error('Server Failed');
+      logger.error('Unhandled Rejection at:', reason.stack || reason);
+    });
     updateServer();
 
   }
