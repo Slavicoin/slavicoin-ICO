@@ -56,9 +56,9 @@ async function updateServer() {
     server = new SlavicoinICO();
 
     try {
+      timer = null;
       await server.initializeServer(nuxt);
       server.startServer();
-      timer = null;
     } catch(error) {
       console.log(error);
       logger.error('ERROR!');
