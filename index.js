@@ -94,9 +94,9 @@ async function start() {
       watcher.on('all', function () {
         if(timer) {
           clearTimeout(timer);
-        } else {
-          timer = setTimeout(updateServer, 100);
         }
+        timer = setTimeout(updateServer, 100);
+
       });
     });
 
