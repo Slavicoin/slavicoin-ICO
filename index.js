@@ -43,6 +43,7 @@ function emptyMemory() {
 async function updateServer() {
   async function serverStopped(stoppingError) {
     if(stoppingError) {
+      console.error(stoppingError);
       logger.error('Error');
       logger.error(stoppingError);
     }
@@ -66,6 +67,7 @@ async function updateServer() {
     }
   }
 
+  console.log('server');
   if(server) {
     server.stopServer(serverStopped);
   } else if(firstRun) {
@@ -96,7 +98,6 @@ async function start() {
           clearTimeout(timer);
         }
         timer = setTimeout(updateServer, 100);
-
       });
     });
 

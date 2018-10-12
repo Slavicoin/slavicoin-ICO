@@ -12,7 +12,7 @@ Promise.promisifyAll(glob);
 
 class SlavicoinICO {
   constructor() {
-    this.eth = new Ethereum();
+    this.eth = Ethereum.create();
 
     this.connections = [];
     this.app = express();
@@ -27,14 +27,16 @@ class SlavicoinICO {
 
   }
 
-  initializeServer(nuxt) {
+  async initializeServer(nuxt) {
     this.app.set('port', 3010);
 
+
+    await this.includeAPIRoutes();
     this.includeMiddlewares();
-
     this.includeViewRoutes(nuxt);
-    return this.includeAPIRoutes();
 
+    const eth = await Ethereum.create();
+    await eth.checkBalance();
   }
   includeMiddlewares() {
     logger.info('Including middlewares');
@@ -45,17 +47,13 @@ class SlavicoinICO {
   }
   async includeAPIRoutes() {
     logger.info('Including API routes');
-    console.log(await this.eth.checkTransaction('0x2afb84d989a31f17e84f50036fefd6940cc95023e80efa4cc6400b272794bd6e'));
 
-    const routes = await glob.globAsync('**/api/**/*.route.js');
-    routes.forEach((route) => {
-      require(route.replace('node_modules/', ''))(this.app);
-    });
+    require('./api/health/get/health.route')(this.app);
+
   }
   includeViewRoutes(nuxt) {
     logger.info('Including view application');
     this.app.use(nuxt.render);
-
   }
 
   connectionClose(closed) {

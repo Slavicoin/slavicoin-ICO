@@ -2,13 +2,9 @@
 
 </style>
 <script>
-  import axios from 'axios';
-
   export default {
     name: "index",
     data: function () {
-      const result = axios.get('/api/health');
-
       return {
         test: 'hello world',
       };
@@ -19,6 +15,8 @@
 <template>
     <div>
         Hello world <br />
+
+        this is test :)
 
         message: {{ test }}
     </div>
