@@ -67,7 +67,6 @@ async function updateServer() {
     }
   }
 
-  console.log('server');
   if(server) {
     server.stopServer(serverStopped);
   } else if(firstRun) {

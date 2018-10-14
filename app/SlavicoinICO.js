@@ -12,8 +12,6 @@ Promise.promisifyAll(glob);
 
 class SlavicoinICO {
   constructor() {
-    this.eth = Ethereum.create();
-
     this.connections = [];
     this.app = express();
 
@@ -36,7 +34,7 @@ class SlavicoinICO {
     this.includeViewRoutes(nuxt);
 
     const eth = await Ethereum.create();
-    await eth.checkBalance();
+    await eth.checkTransaction();
   }
   includeMiddlewares() {
     logger.info('Including middlewares');
