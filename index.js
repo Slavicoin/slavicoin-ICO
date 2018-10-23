@@ -9,12 +9,19 @@ const options = require('./nuxt.config.js');
 
 const nuxt = new Nuxt(options);
 
+
+const databaseConfiguration = require('configuration/database/database-configuration.service');
+const knex = require('knex');
+const database = knex(databaseConfiguration.postgres);
+
 let SlavicoinICO;
 
 let firstRun = true;
 let timer = null;
 let server;
 let watcher;
+let databaseService;
+
 
 function emptyMemory() {
   Object.keys(require.cache).forEach(function (key) {
@@ -53,6 +60,10 @@ async function updateServer() {
 
     emptyMemory();
 
+    logger.info('Injecting the database connections');
+    databaseService = require('app/database/database.service');
+    databaseService.inject(database);
+
     SlavicoinICO = require('app/SlavicoinICO');
     server = new SlavicoinICO();
 
@@ -73,6 +84,11 @@ async function updateServer() {
     firstRun = false;
 
     logger.info('First time starting');
+
+    logger.info('Injecting the database connections');
+
+    databaseService = require('app/database/database.service');
+    databaseService.inject(database);
 
     SlavicoinICO = require('app/SlavicoinICO');
     server = new SlavicoinICO();

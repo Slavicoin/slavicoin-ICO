@@ -22,7 +22,7 @@ class Ethereum {
     this.numberOfDecimals = 18;
   }
   async checkTransaction(txHash) {
-    const transaction = await this.provider.getTransaction('0x653e8c35de74b8dfbce5e16c8098fae9203a858f39d9c86b946c8e94bbc5962d');
+    const transaction = await this.provider.getTransaction('0x71f3a7d3d01086dd3575a71451f71ed752d08abb1518797a2e1295e6a8f2fed7');
 
     logger.info(transaction);
   }
