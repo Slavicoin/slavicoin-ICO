@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "knex": "cross-env NODE_PATH=. knex",
     "start": "cross-env NODE_PATH=. node index.js",
     "nuxt": "nuxt",
     "eslint": "eslint",
