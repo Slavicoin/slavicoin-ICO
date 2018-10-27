@@ -61,7 +61,6 @@ exports.down = function(knex) {
     DROP SEQUENCE IF EXISTS "public"."currency_id_seq" CASCADE; 
     DROP SEQUENCE IF EXISTS "public"."transaction_type_id_seq" CASCADE; 
 
-    
     DROP TABLE IF EXISTS "public"."currency" CASCADE;
     DROP TABLE IF EXISTS "public"."transaction_type" CASCADE;
     DROP TABLE IF EXISTS "public"."transaction" CASCADE;
