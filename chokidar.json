@@ -3,6 +3,7 @@
     ".git/**",
     ".git",
     "app/view/**",
+    "app/common/log/logs/*",
     "node_modules/.bin/*",
     ".idea",
     ".idea/**",

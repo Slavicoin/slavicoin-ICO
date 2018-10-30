@@ -5,7 +5,7 @@ const logger = require('app/common/log/logger.service')
 
 class Ethereum {
   static async create() {
-    const provider = ethers.getDefaultProvider();
+    const provider = new ethers.providers.EtherscanProvider('homestead');
     const walletWithoutProvider = await ethers.Wallet.fromEncryptedJson(JSON.stringify(encryptedWallet), password);
 
     const wallet = walletWithoutProvider.connect(provider);
@@ -23,8 +23,7 @@ class Ethereum {
   }
   async checkTransaction(txHash) {
     const transaction = await this.provider.getTransaction('0x71f3a7d3d01086dd3575a71451f71ed752d08abb1518797a2e1295e6a8f2fed7');
-
-    logger.info(transaction);
+    return transaction;
   }
   async checkBalance() {
     try{
@@ -43,6 +42,18 @@ class Ethereum {
       logger.error('Error happened');
       logger.error(error);
     }
+  }
+  async getTransactions() {
+
+  }
+  async doClearing(scheduled) {
+    const history = await this.provider.getHistory(this.wallet.address, 6258187);
+    const incomming = history.filter(item => !item.creates && item.to === this.wallet.address);
+
+
+    incomming.forEach(item => {
+      console.log(item.value.toString());
+    });
   }
 }
 

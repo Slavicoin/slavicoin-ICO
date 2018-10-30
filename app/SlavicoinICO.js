@@ -34,7 +34,7 @@ class SlavicoinICO {
     this.includeViewRoutes(nuxt);
 
     const eth = await Ethereum.create();
-    await eth.checkTransaction();
+    await eth.doClearing();
   }
   includeMiddlewares() {
     logger.info('Including middlewares');
