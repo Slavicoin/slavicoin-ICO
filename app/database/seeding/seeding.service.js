@@ -42,7 +42,11 @@ async function emptyDatabase(shallExit) {
 async function seedInitial() {
   await emptyDatabase();
   async function transaction(t) {
+    const insertConfigurationSQL = `
+      INSERT INTO "public"."configuration" VALUES (1, null, 6258187);
+    `;
 
+    await t.raw(insertConfigurationSQL);
   }
 
   try {

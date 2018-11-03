@@ -3,9 +3,9 @@ exports.up = function(knex) {
   const sql = `
     CREATE TABLE
       "public"."configuration" (
-        "id" int2 NOT NULL,
-        "currentBlock"  int2 NOT NULL,
-        "defaultBlock" int2 NOT NULL,
+        "id" int8 NOT NULL,
+        "currentBlock"  int8,
+        "defaultBlock" int8 NOT NULL,
         PRIMARY KEY ("id")
       );
   `;
