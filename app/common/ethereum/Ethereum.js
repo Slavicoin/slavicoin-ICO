@@ -1,6 +1,7 @@
 const ethers = require('ethers');
 
 const { encryptedWallet, password, contractAddress, abi } = require('../../../configuration/wallet');
+const databaseService = require('app/database/database.service');
 const logger = require('app/common/log/logger.service')
 
 class Ethereum {
@@ -47,9 +48,20 @@ class Ethereum {
 
   }
   async doClearing(scheduled) {
-    const history = await this.provider.getHistory(this.wallet.address, 6258187);
-    const incomming = history.filter(item => !item.creates && item.to === this.wallet.address);
 
+    const { database } = databaseService.get()
+    const {rows} = await database.raw('SELECT * FROM "public"."configuration"');
+
+    let startingBlock = 0;
+
+    if(rows[0].currentBlock) {
+      startingBlock = rows[0].currentBlock;
+    } else {
+      startingBlock = rows[0].defaultBlock;
+    }
+    const history = await this.provider.getHistory(this.wallet.address, startingBlock);
+
+    const incomming = history.filter(item => !item.creates && item.to === this.wallet.address);
 
     incomming.forEach(item => {
       console.log(item.value.toString());
