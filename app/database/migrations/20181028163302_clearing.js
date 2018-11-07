@@ -27,6 +27,8 @@ exports.up = function(knex, Promise) {
       "public"."clearing" (
         "id" int2 NOT NULL DEFAULT nextval('"public".clearing_id_seq'::regclass),
         "name" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
+        "start" timestamp DEFAULT now(),
+        "end" timestamp DEFAULT NULL,
         "type"  int2 DEFAULT 1,
         PRIMARY KEY ("id"),
         CONSTRAINT "c_type_fk" FOREIGN KEY ("type") REFERENCES "public"."clearing_type" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION

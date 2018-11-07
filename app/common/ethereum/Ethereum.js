@@ -47,10 +47,14 @@ class Ethereum {
   async getTransactions() {
 
   }
+  async beginClearing() {
+
+  }
   async doClearing(scheduled) {
 
     const { database } = databaseService.get()
-    const {rows} = await database.raw('SELECT * FROM "public"."configuration"');
+    const { rows } = await database.raw('SELECT * FROM "public"."configuration"');
+    //const result = await database.raw();
 
     let startingBlock = 0;
 
@@ -64,7 +68,7 @@ class Ethereum {
     const incomming = history.filter(item => !item.creates && item.to === this.wallet.address);
 
     incomming.forEach(item => {
-      console.log(item.value.toString());
+      console.log(item);
     });
   }
 }
